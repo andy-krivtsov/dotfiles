@@ -1,0 +1,33 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
+
+# Note: PS1 and umask are already set in /etc/profile. You should not
+# need this unless you want different defaults for root.
+# PS1='${debian_chroot:+($debian_chroot)}\h:\w\$ '
+# umask 022
+
+HISTCONTROL=ignoredups:ignorespace
+shopt -s checkwinsize
+
+export color_prompt=yes
+export EDITOR='nano'
+
+export LS_OPTIONS='--color=auto'
+eval "$(dircolors)"
+
+# enable bash completion in interactive shells
+if [[ -f "/usr/share/bash-completion/bash_completion" ]]; then
+    . /usr/share/bash-completion/bash_completion
+elif [ -f "/etc/bash_completion" ]; then
+    . /etc/bash_completion
+fi
+
+if [[ -e "$HOME/.bash_aliases" ]]; then
+    . $HOME/.bash_aliases
+fi
+
+# Oh-my-posh prompt
+OH_MY_POSH_THEME="$HOME/.poshthemes/agnoster.omp.json"
+
+if [[ -x "/usr/local/bin/oh-my-posh" && -e "$OH_MY_POSH_THEME" ]]; then
+    eval "$(oh-my-posh init bash --config "$OH_MY_POSH_THEME")"
+fi
